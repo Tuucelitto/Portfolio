@@ -1,0 +1,61 @@
+---
+import '@fontsource-variable/bricolage-grotesque';
+import '@fontsource-variable/jetbrains-mono';
+import '../styles/global.css';
+import { languages, type Lang } from '../i18n/ui';
+import { getLocalizedPath, resolveLang, useTranslations } from '../i18n/utils';
+
+const lang = resolveLang(Astro.currentLocale);
+const t = useTranslations(lang);
+
+const title = t('meta.title');
+const description = t('meta.description');
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL('/og.png', Astro.site);
+const alternates = (Object.keys(languages) as Lang[]).map((code) => ({
+  code,
+  href: new URL(getLocalizedPath(Astro.url.pathname, code), Astro.site),
+}));
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#22262e" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {alternates.map(({ code, href }) => <link rel="alternate" hreflang={code} href={href} />)}
+    <link rel="alternate" hreflang="x-default" href={alternates[0].href} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content={lang === 'tr' ? 'tr_TR' : 'en_US'} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <!-- Reveal styles only apply when JS can undo them, so content is never stuck hidden. -->
+    <script is:inline>
+      document.documentElement.classList.add('js');
+    </script>
+  </head>
+  <body id="top">
+    <a
+      href="#main"
+      class="fixed left-4 top-2 z-50 -translate-y-16 rounded-md bg-accent px-3 py-2 font-mono text-sm text-bg focus:translate-y-0"
+    >
+      {t('a11y.skip')}
+    </a>
+    <slot />
+    <script>
+      import '../scripts/effects';
+    </script>
+  </body>
+</html>

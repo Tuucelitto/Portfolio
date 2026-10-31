@@ -1,0 +1,28 @@
+---
+import SectionHeading from './SectionHeading.astro';
+import { skillGroups } from '../data/skills';
+import { resolveLang, useTranslations } from '../i18n/utils';
+
+const lang = resolveLang(Astro.currentLocale);
+const t = useTranslations(lang);
+---
+
+<section id="skills" class="py-12 sm:py-16">
+  <SectionHeading label={t('skills.label')} title={t('skills.title')} />
+  <dl class="reveal space-y-5">
+    {
+      skillGroups.map(({ name, items }) => (
+        <div class="grid gap-2 sm:grid-cols-[10.5rem_1fr]">
+          <dt class="font-mono text-sm text-muted sm:pt-1">{name[lang]}</dt>
+          <dd>
+            <ul class="flex flex-wrap gap-1.5 font-mono text-sm">
+              {items.map((item) => (
+                <li class="rounded border border-line bg-surface/80 px-2.5 py-1">{item}</li>
+              ))}
+            </ul>
+          </dd>
+        </div>
+      ))
+    }
+  </dl>
+</section>

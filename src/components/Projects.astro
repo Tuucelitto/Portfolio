@@ -1,0 +1,16 @@
+---
+import ProjectCard from './ProjectCard.astro';
+import SectionHeading from './SectionHeading.astro';
+import { projects } from '../data/projects';
+import { resolveLang, useTranslations } from '../i18n/utils';
+
+const lang = resolveLang(Astro.currentLocale);
+const t = useTranslations(lang);
+---
+
+<section id="projects" class="py-16 sm:py-24">
+  <SectionHeading label={t('projects.label')} title={t('projects.title')} />
+  <div class="grid gap-4 lg:grid-cols-3">
+    {projects.map((project, index) => <ProjectCard project={project} delay={index * 80} />)}
+  </div>
+</section>

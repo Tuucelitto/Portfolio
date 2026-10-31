@@ -1,0 +1,85 @@
+---
+import { Image } from 'astro:assets';
+import type { Project } from '../data/projects';
+import { resolveLang, useTranslations } from '../i18n/utils';
+
+interface Props {
+  project: Project;
+  delay?: number;
+}
+
+const { project, delay = 0 } = Astro.props;
+const lang = resolveLang(Astro.currentLocale);
+const t = useTranslations(lang);
+const title = project.title[lang];
+---
+
+<div
+  class:list={['reveal min-w-0', project.featured && 'lg:col-span-2 lg:row-span-2']}
+  style={`--reveal-delay: ${delay}ms`}
+>
+  <article
+    class="glow-card flex h-full flex-col overflow-hidden rounded-xl border border-line bg-surface/80"
+  >
+    {
+      project.image && (
+        <Image
+          src={project.image.src}
+          alt={project.image.alt[lang]}
+          widths={[400, 735]}
+          sizes="(min-width: 1024px) 720px, 100vw"
+          class="w-full border-b border-line object-cover object-left-top lg:min-h-0 lg:flex-1"
+          loading="lazy"
+        />
+      )
+    }
+    <div class:list={['flex flex-col p-5 sm:p-6', !project.image && 'flex-1']}>
+      {project.tag && <p class="mb-2 font-mono text-xs text-accent">{project.tag[lang]}</p>}
+      <h3 class="text-xl font-bold tracking-tight sm:text-2xl">{title}</h3>
+      <p class="mt-3 leading-relaxed text-muted">{project.summary[lang]}</p>
+
+      {
+        project.metrics && (
+          <dl class="mt-5 grid grid-cols-2 gap-4">
+            {project.metrics.map(({ value, label }) => (
+              <div class="flex flex-col-reverse gap-1">
+                <dt class="font-mono text-xs text-muted">{label[lang]}</dt>
+                <dd class="text-3xl font-extrabold tracking-tight text-accent">{value}</dd>
+              </div>
+            ))}
+          </dl>
+        )
+      }
+
+      {
+        project.highlights.length > 0 && (
+          <ul class="mt-4 space-y-2 text-sm leading-relaxed text-muted">
+            {project.highlights.map((highlight) => (
+              <li class="flex gap-2">
+                <span class="font-mono text-accent" aria-hidden="true">
+                  &gt;
+                </span>
+                <span>{highlight[lang]}</span>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+
+      <div class="mt-auto pt-5">
+        <ul class="flex flex-wrap gap-1.5 font-mono text-xs text-muted">
+          {project.tech.map((item) => <li class="rounded border border-line px-2 py-1">{item}</li>)}
+        </ul>
+        <a
+          href={project.github}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={`${t('projects.sourceOf')} ${title}`}
+          class="mt-4 inline-block font-mono text-sm text-accent underline-offset-4 hover:underline"
+        >
+          {t('projects.source')} ↗
+        </a>
+      </div>
+    </div>
+  </article>
+</div>

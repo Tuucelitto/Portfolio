@@ -1,0 +1,62 @@
+---
+import { profile } from '../data/profile';
+import { resolveLang, useTranslations } from '../i18n/utils';
+
+const lang = resolveLang(Astro.currentLocale);
+const t = useTranslations(lang);
+---
+
+<div data-email data-copied={t('contact.copied')} data-failed={t('contact.copyFailed')}>
+  <a
+    data-email-fallback
+    href={profile.linkedin}
+    target="_blank"
+    rel="noopener noreferrer"
+    class="inline-block rounded-md bg-accent px-4 py-2.5 font-mono text-sm font-medium text-bg transition-opacity hover:opacity-85"
+  >
+    {t('contact.noJs')} ↗
+  </a>
+
+  <div data-email-panel hidden>
+    <div class="flex flex-wrap items-center gap-3">
+      <code data-email-address class="break-all font-mono text-lg text-ink sm:text-xl"></code>
+      <button
+        type="button"
+        data-email-copy
+        aria-label={t('contact.copyLabel')}
+        class="cursor-pointer rounded-md bg-accent px-3 py-2 font-mono text-sm font-medium text-bg transition-opacity hover:opacity-85"
+      >
+        {t('contact.copy')}
+      </button>
+    </div>
+    <p data-email-status class="mt-2 h-5 font-mono text-sm text-accent" aria-live="polite"></p>
+  </div>
+</div>
+
+<script>
+  // The address only exists after this runs, so it never appears in the HTML
+  // and no mailto: link is exposed to scrapers. Parts are stored reversed because
+  // the minifier would fold a plain join() back into the full address at build time.
+  const address = ['rugyueecgut', 'moc.liamg']
+    .map((part) => [...part].reverse().join(''))
+    .join('@');
+
+  document.querySelectorAll<HTMLElement>('[data-email]').forEach((root) => {
+    const panel = root.querySelector<HTMLElement>('[data-email-panel]')!;
+    const status = root.querySelector<HTMLElement>('[data-email-status]')!;
+
+    root.querySelector('[data-email-fallback]')!.remove();
+    root.querySelector('[data-email-address]')!.textContent = address;
+    panel.hidden = false;
+
+    root.querySelector('[data-email-copy]')!.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText(address);
+        status.textContent = root.dataset.copied!;
+      } catch {
+        // Clipboard access can be denied; the address stays visible to select by hand.
+        status.textContent = root.dataset.failed!;
+      }
+    });
+  });
+</script>

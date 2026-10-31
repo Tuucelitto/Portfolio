@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Contact from './Contact.astro';
+import Experience from './Experience.astro';
+import Footer from './Footer.astro';
+import Header from './Header.astro';
+import Hero from './Hero.astro';
+import Projects from './Projects.astro';
+import Skills from './Skills.astro';
+import SkillsMarquee from './SkillsMarquee.astro';
+---
+
+<BaseLayout>
+  <Header />
+  <main id="main">
+    <Hero />
+    <SkillsMarquee />
+    <div class="mx-auto max-w-6xl px-4 sm:px-6">
+      <Projects />
+      <div class="grid border-y border-line lg:grid-cols-[2fr_3fr] lg:gap-12">
+        <Experience />
+        <Skills />
+      </div>
+      <Contact />
+    </div>
+  </main>
+  <Footer />
+</BaseLayout>

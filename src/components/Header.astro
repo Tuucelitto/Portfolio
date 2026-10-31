@@ -1,0 +1,39 @@
+---
+import LanguageSwitch from './LanguageSwitch.astro';
+import { resolveLang, useTranslations } from '../i18n/utils';
+import type { UiKey } from '../i18n/ui';
+
+const lang = resolveLang(Astro.currentLocale);
+const t = useTranslations(lang);
+
+const links: { id: string; label: UiKey }[] = [
+  { id: 'projects', label: 'nav.projects' },
+  { id: 'experience', label: 'nav.experience' },
+  { id: 'skills', label: 'nav.skills' },
+  { id: 'contact', label: 'nav.contact' },
+];
+---
+
+<header class="sticky top-0 z-40 border-b border-line/70 bg-bg/80 backdrop-blur-md">
+  <div class="mx-auto flex h-14 max-w-6xl items-center justify-between gap-4 px-4 sm:px-6">
+    <a href="#top" class="font-mono text-sm text-ink transition-colors hover:text-accent">
+      <span class="text-accent" aria-hidden="true">~/</span>betul
+    </a>
+    <div class="flex items-center gap-5">
+      <nav aria-label={t('a11y.nav')} class="hidden md:block">
+        <ul class="flex gap-5 font-mono text-sm text-muted">
+          {
+            links.map(({ id, label }) => (
+              <li>
+                <a href={`#${id}`} class="transition-colors hover:text-accent">
+                  {t(label)}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+      <LanguageSwitch />
+    </div>
+  </div>
+</header>

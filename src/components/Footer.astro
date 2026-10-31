@@ -1,0 +1,17 @@
+---
+import { profile } from '../data/profile';
+import { resolveLang, useTranslations } from '../i18n/utils';
+
+const lang = resolveLang(Astro.currentLocale);
+const t = useTranslations(lang);
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-line">
+  <div
+    class="mx-auto flex max-w-6xl flex-wrap justify-between gap-2 px-4 py-6 font-mono text-xs text-muted sm:px-6"
+  >
+    <p>© {year} {profile.name}</p>
+    <p>{t('footer.location')}</p>
+  </div>
+</footer>

@@ -1,0 +1,42 @@
+---
+import { profile } from '../data/profile';
+import { resolveLang, useTranslations } from '../i18n/utils';
+
+const lang = resolveLang(Astro.currentLocale);
+const t = useTranslations(lang);
+---
+
+<section class="relative overflow-hidden">
+  <div class="grid-texture absolute inset-0 -z-10" aria-hidden="true"></div>
+  <div
+    class="hero-glow absolute -right-32 -top-32 -z-10 size-[28rem] sm:size-[40rem]"
+    aria-hidden="true"
+  >
+  </div>
+
+  <div class="reveal mx-auto max-w-6xl px-4 py-16 sm:px-6 sm:py-24 lg:py-32">
+    <p class="font-mono text-sm text-accent">{t('hero.greeting')}</p>
+    <h1
+      class="mt-3 text-[clamp(2.5rem,11vw,4.25rem)] font-extrabold leading-[0.95] tracking-tight lg:text-[clamp(3.75rem,6.4vw,5.75rem)]"
+    >
+      {profile.name}
+    </h1>
+    <p class="mt-8 max-w-2xl text-xl font-medium leading-snug sm:text-2xl">{t('hero.role')}</p>
+    <p class="mt-4 max-w-2xl leading-relaxed text-muted">{t('hero.summary')}</p>
+    <p class="mt-4 font-mono text-sm text-muted">{t('hero.meta')}</p>
+    <div class="mt-8 flex flex-wrap gap-3 font-mono text-sm">
+      <a
+        href="#projects"
+        class="rounded-md bg-accent px-4 py-2.5 font-medium text-bg transition-opacity hover:opacity-85"
+      >
+        {t('hero.ctaProjects')}
+      </a>
+      <a
+        href="#contact"
+        class="rounded-md border border-control px-4 py-2.5 transition-colors hover:border-accent hover:text-accent"
+      >
+        {t('hero.ctaContact')}
+      </a>
+    </div>
+  </div>
+</section>

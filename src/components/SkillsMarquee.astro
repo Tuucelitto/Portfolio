@@ -1,0 +1,26 @@
+---
+import { Image } from 'astro:assets';
+import { skillLogos } from '../data/skills';
+import { resolveLang, useTranslations } from '../i18n/utils';
+
+const lang = resolveLang(Astro.currentLocale);
+const t = useTranslations(lang);
+
+// The second copy fills the gap left by the first as it scrolls away.
+const copies = [{ hidden: false }, { hidden: true }];
+---
+
+<section aria-label={t('skills.marqueeLabel')} class="marquee border-y border-line py-6">
+  {
+    copies.map(({ hidden }) => (
+      <ul class="marquee-track" aria-hidden={hidden ? 'true' : undefined}>
+        {skillLogos.map(({ name, logo }) => (
+          <li class="flex items-center gap-2.5 px-6 sm:px-8">
+            <Image src={logo} alt="" class="size-7 object-contain" loading="eager" />
+            <span class="whitespace-nowrap font-mono text-sm">{name}</span>
+          </li>
+        ))}
+      </ul>
+    ))
+  }
+</section>
