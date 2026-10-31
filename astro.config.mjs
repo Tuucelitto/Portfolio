@@ -2,7 +2,7 @@ import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
-  site: 'https://betultugceuygur.vercel.app',
+  site: 'https://betultugceuygur.netlify.app',
   i18n: {
     locales: ['en', 'tr'],
     defaultLocale: 'en',

@@ -2,7 +2,7 @@
 
 Personal portfolio of Betül Tuğçe Uygur, a computer engineer focused on AI and machine learning. Static, bilingual (English and Turkish) site built with Astro and Tailwind CSS.
 
-**Live:** [betultugceuygur.vercel.app](https://betultugceuygur.vercel.app)
+**Live:** [betultugceuygur.netlify.app](https://betultugceuygur.netlify.app)
 
 ## Demo
 
@@ -24,7 +24,7 @@ Personal portfolio of Betül Tuğçe Uygur, a computer engineer focused on AI an
 - [Tailwind CSS](https://tailwindcss.com) 4
 - TypeScript
 - Self-hosted Bricolage Grotesque and JetBrains Mono fonts
-- [Vercel](https://vercel.com) (deploys on every push to `main`)
+- [Netlify](https://www.netlify.com) (deploys on every push to `main`)
 
 ## Getting Started
 
@@ -62,4 +62,4 @@ src/
 ## What I Learned
 
 - **i18n routing and data:** I used Astro's built-in routing for `/` and `/tr/`, and kept every string in one typed translation file or a `{ en, tr }` data field. TypeScript flags a missing translation key, so the two languages stay in sync.
-- **Network-level debugging:** When the deployed link would not open, I checked each layer separately. A clean build and a successful deployment ruled out the code, and connecting to the same Vercel IP under different hostnames showed the connection was being reset based on the hostname.
+- **Network-level debugging:** When the deployed link would not open, I checked each layer separately. A clean build and a successful deployment ruled out the code, and connecting to the same Vercel IP under different hostnames showed the connection was being reset based on the hostname. Comparing other hosting domains from the same network led me to move the site to Netlify.
