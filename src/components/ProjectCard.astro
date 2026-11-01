@@ -14,10 +14,7 @@ const t = useTranslations(lang);
 const title = project.title[lang];
 ---
 
-<div
-  class:list={['reveal min-w-0', project.featured && 'lg:col-span-2 lg:row-span-2']}
-  style={`--reveal-delay: ${delay}ms`}
->
+<div class="reveal min-w-0" style={`--reveal-delay: ${delay}ms`}>
   <article
     class="glow-card flex h-full flex-col overflow-hidden rounded-xl border border-line bg-surface/80"
   >
@@ -27,13 +24,13 @@ const title = project.title[lang];
           src={project.image.src}
           alt={project.image.alt[lang]}
           widths={[400, 735]}
-          sizes="(min-width: 1024px) 720px, 100vw"
-          class="w-full border-b border-line object-cover object-left-top lg:min-h-0 lg:flex-1"
+          sizes="(min-width: 1024px) 544px, 100vw"
+          class="w-full border-b border-line object-cover object-left-top"
           loading="lazy"
         />
       )
     }
-    <div class:list={['flex flex-col p-5 sm:p-6', !project.image && 'flex-1']}>
+    <div class="flex flex-1 flex-col p-5 sm:p-6">
       {project.tag && <p class="mb-2 font-mono text-xs text-accent">{project.tag[lang]}</p>}
       <h3 class="text-xl font-bold tracking-tight sm:text-2xl">{title}</h3>
       <p class="mt-3 leading-relaxed text-muted">{project.summary[lang]}</p>
@@ -70,15 +67,30 @@ const title = project.title[lang];
         <ul class="flex flex-wrap gap-1.5 font-mono text-xs text-muted">
           {project.tech.map((item) => <li class="rounded border border-line px-2 py-1">{item}</li>)}
         </ul>
-        <a
-          href={project.github}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={`${t('projects.sourceOf')} ${title}`}
-          class="mt-4 inline-block font-mono text-sm text-accent underline-offset-4 hover:underline"
-        >
-          {t('projects.source')} ↗
-        </a>
+        <div class="mt-4 flex flex-wrap gap-x-5 gap-y-2 font-mono text-sm text-accent">
+          {
+            project.demo && (
+              <a
+                href={project.demo}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`${t('projects.demoOf')} ${title}`}
+                class="underline-offset-4 hover:underline"
+              >
+                {t('projects.demo')} ↗
+              </a>
+            )
+          }
+          <a
+            href={project.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`${t('projects.sourceOf')} ${title}`}
+            class="underline-offset-4 hover:underline"
+          >
+            {t('projects.source')} ↗
+          </a>
+        </div>
       </div>
     </div>
   </article>

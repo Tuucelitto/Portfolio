@@ -1,6 +1,7 @@
 import type { ImageMetadata } from 'astro';
 import type { Localized } from '../i18n/utils';
 import aiNewsHome from '../assets/projects/ai-news-home-dark.jpg';
+import mevzuatAsistani from '../assets/projects/mevzuat-asistani.jpg';
 
 export interface Project {
   slug: string;
@@ -11,14 +12,15 @@ export interface Project {
   metrics?: { value: string; label: Localized }[];
   tech: string[];
   github: string;
+  demo?: string;
   image?: { src: ImageMetadata; alt: Localized };
-  featured?: boolean;
 }
 
 export const projects: Project[] = [
   {
     slug: 'ai-news',
     title: { en: 'AI News', tr: 'AI News' },
+    tag: { en: 'Full-stack project', tr: 'Full-stack proje' },
     summary: {
       en: 'A self-hosted news reader that collects AI news from RSS feeds every hour, extracts the full article text and summarizes it in Turkish with the Gemini API.',
       tr: 'Yapay zeka haberlerini RSS kaynaklarından saatlik toplayan, makalelerin tam metnini çıkaran ve Gemini API ile Türkçe özetleyen, kendi sunucusunda çalışan haber okuyucu.',
@@ -60,7 +62,43 @@ export const projects: Project[] = [
         tr: 'Koyu temalı AI News ana sayfası: öne çıkan haber ve Türkçe haber özetlerinden oluşan ızgara',
       },
     },
-    featured: true,
+  },
+  {
+    slug: 'mevzuat-asistani',
+    title: { en: 'Mevzuat Asistanı', tr: 'Mevzuat Asistanı' },
+    tag: { en: 'Measured RAG system', tr: 'Ölçülen RAG sistemi' },
+    summary: {
+      en: 'A RAG system that answers Turkish labour-law questions with article citations and refuses when the law text has no answer. Results come from a held-out test set of 47 questions.',
+      tr: 'Türk iş mevzuatı sorularını madde numarasıyla cevaplayan, metinde cevap yoksa bilmiyorum diyen RAG sistemi. Sonuçlar 47 soruluk ayrı bir test setinden geliyor.',
+    },
+    highlights: [
+      {
+        en: 'No wrong information in hand-graded answers; graded against the law text, not by a lawyer',
+        tr: 'Elle puanlanan cevaplarda yanlış bilgi yok; puanlama kanun metnine göre yapıldı, hukukçu tarafından değil',
+      },
+      {
+        en: 'Weakest area: only 2 of 11 everyday-language questions were answered completely',
+        tr: 'En zayıf alan: gündelik dille sorulan 11 sorunun yalnızca 2’si tam cevaplandı',
+      },
+      {
+        en: 'Compared dense, BM25 and hybrid search with recorded numbers',
+        tr: 'Vektör, BM25 ve hibrit arama sayılarla karşılaştırıldı',
+      },
+    ],
+    metrics: [
+      { value: '24/35', label: { en: 'complete answers', tr: 'tam cevap' } },
+      { value: '12/12', label: { en: 'correct refusals', tr: 'doğru bilmiyorum' } },
+    ],
+    tech: ['Python', 'FastAPI', 'Gemini API', 'Qdrant', 'Vue 3', 'TypeScript', 'pytest'],
+    github: 'https://github.com/Tuucelitto/mevzuat-rag',
+    demo: 'https://mevzuat-asistani.netlify.app',
+    image: {
+      src: mevzuatAsistani,
+      alt: {
+        en: 'Mevzuat Asistanı answering a question about unused annual leave and citing Article 59 of Law No. 4857',
+        tr: 'Mevzuat Asistanı, kullanılmayan yıllık izinle ilgili soruya 4857 sayılı Kanunun 59. maddesini göstererek cevap veriyor',
+      },
+    },
   },
   {
     slug: 'fingerprint-prediction',

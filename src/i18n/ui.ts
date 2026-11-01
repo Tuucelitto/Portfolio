@@ -31,6 +31,8 @@ const en = {
   'projects.label': '~/projects',
   'projects.source': 'Source code',
   'projects.sourceOf': 'Source code of',
+  'projects.demo': 'Live demo',
+  'projects.demoOf': 'Live demo of',
 
   'experience.title': 'Experience',
   'experience.label': '~/experience',
@@ -79,6 +81,8 @@ const tr: Record<keyof typeof en, string> = {
   'projects.label': '~/projeler',
   'projects.source': 'Kaynak kod',
   'projects.sourceOf': 'Kaynak kodu:',
+  'projects.demo': 'Canlı demo',
+  'projects.demoOf': 'Canlı demo:',
 
   'experience.title': 'Deneyim',
   'experience.label': '~/deneyim',
